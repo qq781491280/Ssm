@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--通过properties标签加载外部properties文件-->
+    <properties resource="jdbc.properties"></properties>
+    <!--设置别名-->
+    <typeAliases>
+        <typeAlias type="com.User" alias="user"/>
+    </typeAliases>
+    <!--数据源环境-->
+    <!--指定默认的环境名称-->
+    <environments default="development">
+        <!--指定当前环境名称-->
+        <environment id="development">
+            <!--指定事务管理类型是JDBC-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--指定当前数据源类型是连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="com/zc/mapper/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

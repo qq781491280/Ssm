@@ -1,0 +1,58 @@
+
+<web-app>
+  <!--配置全局过滤的filter解决中文乱码问题-->
+  <filter>
+    <filter-name>EncodingFilter</filter-name>
+    <!--其实这玩意 记住 CharacterEncodingFilter 即可 Idea会自动填充的 -->
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <!--  下面是初始化参数 写死的 内个UTF-8你懂得  -->
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <!--  过滤全部的  -->
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--配置SpringMVC的前端控制器-->
+  <servlet>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--初始化，让spring容器找到spring-mvc.xml配置文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <!--缺省配置-->
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <!--设置全局参数-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <!--配置监听器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
+  <servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.zc.web.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/userServlet</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
